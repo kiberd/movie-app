@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
+import { Link } from 'react-router-dom';
+
+import Button from './Styledcomponents/Button';
+import Input from './Styledcomponents/Input';
 
 const Wrapper = styled.div`
     /* 레이아웃 */
@@ -18,15 +22,35 @@ const Wrapper = styled.div`
     color: white;
     border-bottom: 1px solid ${oc.indigo[7]};
     box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.20);
+`;
 
-    /* 폰트 */
-    font-size: 2.5rem;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  padding: 0.5rem 0;
+  margin: 0.5rem 1rem;
+  width: 11rem;
+  background: transparent;
+  color: white;
+  text-align: center;
+  text-decoration: none;
 `;
 
 
 const Header = () => (
     <Wrapper>
-        
+
+
+
+
+        <Button><StyledLink to="/">Dashboard</StyledLink></Button>
+        <Button><StyledLink to="/search">Search</StyledLink></Button>
+        <Button><StyledLink to="/bookmarks">Bookmarks</StyledLink></Button>
+
+
+        {/* <Input inputColor={"black"} placeholder='Search' primary></Input> */}
+
+
+
     </Wrapper>
 );
 

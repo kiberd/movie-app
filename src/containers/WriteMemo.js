@@ -6,10 +6,9 @@ function WriteMemo() {
     return(
         <WhiteBox>
 
-            {/* <InputPlaceholder/> */}
+            <InputPlaceholder/>
 
-            <InputSet/>
-            <SaveButton/>
+           
 
         </WhiteBox>
 
