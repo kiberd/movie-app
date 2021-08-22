@@ -10,14 +10,11 @@ const Layout = ({ children }) => <Wrapper>{children}</Wrapper>;
 
 Layout.Main = styled.div`
   margin: 0 auto;
-  margin-top: 2rem;
-  width: 1200px;
+  margin-top: 1.5rem;
+  width: 100vw;
   transition: all .3s;
   position: relative;
-
-  ${media.desktop`
-    width: 990px;
-  `}
+  font-family: 'NanumSquare';
 
   ${media.tablet`
     margin-top: 1rem;
@@ -28,6 +25,13 @@ Layout.Main = styled.div`
     margin-top: 0.5rem;
     width: calc(100% - 1rem);        
   `}
+
+  @font-face {
+    font-family: "NanumSqure";
+    src: url("../../public/font/NanumSquareR.ttf") format("truetype");
+  }
+
+  }
 `;
 
 export default Layout;

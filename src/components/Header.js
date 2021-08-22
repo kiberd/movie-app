@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
 
-import Button from './Styledcomponents/Button';
-import Input from './Styledcomponents/Input';
 
 const Wrapper = styled.div`
     /* 레이아웃 */
@@ -42,9 +40,9 @@ const Header = () => (
 
 
 
-        <Button><StyledLink to="/">Dashboard</StyledLink></Button>
-        <Button><StyledLink to="/search">Search</StyledLink></Button>
-        <Button><StyledLink to="/bookmarks">Bookmarks</StyledLink></Button>
+        <StyledLink to="/">Dashboard</StyledLink>
+        <StyledLink to="/search">Search</StyledLink>
+        <StyledLink to="/bookmarks">Bookmarks</StyledLink>
 
 
         {/* <Input inputColor={"black"} placeholder='Search' primary></Input> */}

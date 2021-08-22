@@ -5,6 +5,7 @@ import Layout from 'components/Layout';
 import Search from './Search';
 import Dashboard from './Dashboard';
 import Bookmarks from './Bookmarks';
+import WriteMemo from './WriteMemo';
 
 
 import { Switch } from 'react-router';
@@ -24,7 +25,7 @@ function App() {
 
 
       <Switch>
-          <Route exact path='/' component={Dashboard} />
+          <Route exact path='/' component={WriteMemo} />
           <Route path='/search' component={Search} />
           <Route path='/bookmarks' component={Bookmarks} />
           
