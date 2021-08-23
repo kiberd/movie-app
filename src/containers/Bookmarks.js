@@ -1,9 +1,11 @@
 import React from 'react';
+import { media, MainWrapper } from 'lib/style-utils';
 
 function Bookmarks() {
-    return(
-       <div>Bookmarks</div>
-
+    return (
+        <MainWrapper>
+            <div>Bookmarks</div>
+        </MainWrapper>
 
     );
 }

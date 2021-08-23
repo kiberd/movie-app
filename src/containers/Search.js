@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { media } from 'lib/style-utils';
+import { media, MainWrapper } from 'lib/style-utils';
 import axios from 'axios';
+
 
 import { SearchBar, SearchResult } from 'components/Search'
 import Button from 'components/Shared/Button';
+
 
 const Wrapper = styled.div`
     font-weight: 300;
     font-size: 1.2rem;
     display: flex;
-    height: 90vh;
+    height: 95vh;
     font-family: 'NanumSquare';
 `;
 
@@ -19,59 +21,72 @@ const baseURL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searc
 
 function Search() {
 
-    const [filter, setFilter] = useState({
-        name: ''
-    });
+    const [title, setTitle] = useState('');
+    const [filter, setFilter] = useState();
 
     const [result, setResult] = useState();
 
 
-    const handleFilterTextChange = (target) => {
-        
-        setFilter({
-            ...filter,
-            name: target
-        })
+    const handleTitleChange = (target) => {
+        console.log(target);
+        setTitle(target);
     };
 
     const handleSearchClick = () => {
 
-        let URL = baseURL;
-
-        if (filter.name !== '') {
-            URL = URL + '&movieNm=' + filter.name;
-
-            axios.get(URL)
-                .then((res) => {
-                    setResult(res.data.movieListResult);
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
+        if (title === '') {
+            alert('검색어를 입력해주세요!')
         }
+        else {
+            getSearchMovie();
+        }
+    };
 
-
-
-
-
-
-
-
+    async function getSearchMovie(filter) {
+        try {
+            const { data: { items } } = await axios.get('/v1/search/movie.json',
+                {
+                    params:
+                    {
+                        query: title,
+                        display: 100
+                    },
+                    headers:
+                    {
+                        'X-Naver-Client-Id': 'WTMWv8BhCZ6X8sY1VLdE',
+                        'X-Naver-Client-Secret': 'rIgKTA9THU'
+                    }
+                });
+            
+                console.log(items);
+                setResult(items);
+        }
+        catch (e) {
+            console.log(e);
+        }
 
 
 
     }
 
 
+
+
+
+
+
+
+
     return (
-        <Wrapper>
-            <SearchBar onFilterTextChange={handleFilterTextChange} onHandleSearchClick={handleSearchClick} />
+        <MainWrapper>
+
+            <SearchBar onHandleTitleChange={handleTitleChange} onHandleSearchClick={handleSearchClick} />
 
 
 
             <SearchResult result={result} />
-        </Wrapper>
 
+        </MainWrapper>
 
     );
 }

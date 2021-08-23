@@ -1,9 +1,14 @@
 import React from 'react';
+import { media, MainWrapper } from 'lib/style-utils';
+
+
+
 
 function Dashboard() {
-    return(
-       <div>Dashboard</div>
-
+    return (
+        <MainWrapper>
+            <div>Dashboard</div>
+        </MainWrapper>
 
     );
 }

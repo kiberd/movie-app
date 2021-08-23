@@ -24,8 +24,8 @@ const StyledSearchBar = styled.div`
 
 function SearchBar(props) {
 
-    const handleFilterTextChange = (e) => {
-        props.onFilterTextChange(e.target.value);
+    const handleTitleChange = (e) => {
+        props.onHandleTitleChange(e.target.value);
     }
 
     const handleSearchClick = () => {
@@ -44,7 +44,7 @@ function SearchBar(props) {
     return (
         <StyledSearchBar>
 
-            <Input search plcaeholer='search' onChange={handleFilterTextChange} onKeyPress={onKeyPress}></Input>
+            <Input search plcaeholer='search' onChange={handleTitleChange} onKeyPress={onKeyPress}></Input>
             <Button search primary onClick={handleSearchClick}>검색</Button>
             <SearchFilter></SearchFilter>
             

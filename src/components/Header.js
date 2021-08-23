@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
+import Switch from '@material-ui/core/Switch';
+import {dark, light} from 'lib/style-utils';
+import { props } from 'bluebird';
 
 
 const Wrapper = styled.div`
@@ -9,8 +12,8 @@ const Wrapper = styled.div`
     display: flex;
     position: fixed;
     align-items: center;
-    justify-content: center;
-    height: 60px;
+    // justify-content: center;
+    height: 5vh;
     width: 100%;
     top: 0px;
     z-index: 5;
@@ -34,10 +37,17 @@ const StyledLink = styled(Link)`
 `;
 
 
-const Header = () => (
-    <Wrapper>
+function Header (props) {
 
+    return (
+        <Wrapper>
 
+        <Switch
+        checked={props.darkMode}
+            onChange={props.onToggleTheme}
+            name="checkedB"
+            color="primary"
+        />
 
 
         <StyledLink to="/">Dashboard</StyledLink>
@@ -50,6 +60,8 @@ const Header = () => (
 
 
     </Wrapper>
-);
+    )
+}
+
 
 export default Header;

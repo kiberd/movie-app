@@ -25,13 +25,14 @@ const StyledSearchResult = styled.div`
 function SearchResult(props) {
 
     const result = props.result;
+    console.log(result);
     return (
 
         <StyledSearchResult>
 
             {result ?
-                result.movieList.map((movie) => (
-                    <ResultFragment movie={movie}></ResultFragment>
+                result.map((movie, index) => (
+                    <ResultFragment movie={movie} key={index}></ResultFragment>
                 ))
                 :
                 null

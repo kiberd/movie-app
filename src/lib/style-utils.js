@@ -1,4 +1,6 @@
 import { css } from 'styled-components';
+import styled from 'styled-components';
+
 
 export const media = ({
     desktop: (...args) => css`
@@ -19,3 +21,25 @@ export const media = ({
         }
     `
 });
+
+export const MainWrapper = styled.div`
+font-weight: 300;
+font-size: 1.2rem;
+display: flex;
+height: 95vh;
+font-family: 'NanumSquare';
+`;
+
+export const dark ={
+    colors:{
+        titleColor : '#121212',
+        bgColor: '#ffffff',
+    }
+}
+
+export const light ={
+    colors:{
+        titleColor : '#ffffff',
+        bgColor: ' #121212',
+    }
+}

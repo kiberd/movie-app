@@ -10,6 +10,7 @@ const StyledResultFragment = styled.div`
     color: ${oc.gray[6]};
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    object-fit: fill;
 
     cursor: pointer;
 
@@ -18,14 +19,22 @@ const StyledResultFragment = styled.div`
     }
 `;
 
+const MovieImg = styled.img`
+object-fit: cover;
+}
+
+`;
+
+
+
 function ResultFragment(props) {
 
-    const movie = props.movie;    
+
+    const movie = props.movie;
 
     return (
         <StyledResultFragment>
-        <div>{movie.movieNm}</div>
-          
+            <MovieImg src={movie.image} alt={movie.title} titlt={movie.title}></MovieImg>
         </StyledResultFragment>
     );
 }
