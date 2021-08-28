@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import oc from 'open-color';
+import { useEffect } from 'react';
 
 const StyledResultFragment = styled.div`
     width: 17.5%;
@@ -29,14 +30,32 @@ object-fit: cover;
 
 function ResultFragment(props) {
 
-
     const movie = props.movie;
+    console.log(movie);
+
+    useEffect(() => {
+
+
+
+
+
+    }, [])
 
     return (
         <StyledResultFragment>
             <MovieImg src={movie.image} alt={movie.title} titlt={movie.title}></MovieImg>
         </StyledResultFragment>
     );
+
+
+
+
+
+
+
+
+
+
 }
 
 

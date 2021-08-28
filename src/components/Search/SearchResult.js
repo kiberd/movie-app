@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import oc from 'open-color';
 import { media } from 'lib/style-utils';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import ResultFragment from './ResultFragment';
 import { map } from 'react-immutable-proptypes';
@@ -25,7 +25,16 @@ const StyledSearchResult = styled.div`
 function SearchResult(props) {
 
     const result = props.result;
-    console.log(result);
+
+    // const result = useMemo(() => props.result, [props.result]);
+    
+    // console.log(result);
+
+
+
+
+
+
     return (
 
         <StyledSearchResult>
