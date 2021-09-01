@@ -64,8 +64,6 @@ function Search() {
                     }
                 });
 
-
-
             // url 갖고 있지 않는 애들 제거
             items.map((item) => {
                 if (item.image !== '') {
@@ -94,13 +92,7 @@ function Search() {
         catch (e) {
             console.log(e);
         }
-
-        console.log(finalResult);
         setResult(finalResult);
-
-
-
-
 
     }
 
@@ -111,13 +103,7 @@ function Search() {
         try {
 
             let imgpromise = await onload2promise(img); // see comment of T S why you should do it this way.
-            console.log(imgpromise);
-            console.log(imgpromise.naturalHeight);
-            console.log(imgpromise.naturalWidth);
             const ratio  = isNaN(imgpromise.naturalHeight / imgpromise.naturalWidth) ? 0 : (imgpromise.naturalHeight / imgpromise.naturalWidth).toFixed(1);
-            
-            console.log(ratio);
-
             if (ratio > 1.3) {
                 return imgpromise;
             }
@@ -126,7 +112,6 @@ function Search() {
         catch (e) {
             console.log(e);
         }
-
 
     }
 

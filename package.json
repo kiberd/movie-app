@@ -25,6 +25,7 @@
     "redux-actions": "^2.6.5",
     "redux-pender": "^2.0.12",
     "styled-components": "^5.3.0",
+    "styled-react-modal": "^2.1.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -54,7 +55,5 @@
   "devDependencies": {
     "cross-env": "^7.0.3"
   },
-  "proxy":"https://openapi.naver.com"
-
-
+  "proxy": "https://openapi.naver.com"
 }
