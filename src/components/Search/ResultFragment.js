@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const StyledResultFragment = styled.div`
   width: 17.5%;
-  height: 35%;
+  height: 40%;
   margin: 1%;
   background: white;
   color: ${oc.gray[6]};
