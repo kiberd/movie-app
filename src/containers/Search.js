@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { media, MainWrapper } from 'lib/style-utils';
 import axios from 'axios';
@@ -22,16 +22,16 @@ const baseURL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searc
 
 function Search() {
 
-    let title = '';
-    // const [title, setTitle] = useState('');
+    console.log('Search render');
+
+    const [title, setTitle] = useState('');
     const [filter, setFilter] = useState();
     const [result, setResult] = useState();
 
 
-
     const handleTitleChange = (target) => {
-        title = target;
-        // setTitle(target);
+        const title = target;
+        setTitle(title);
     };
 
     const handleSearchClick = () => {
@@ -104,6 +104,7 @@ function Search() {
 
             let imgpromise = await onload2promise(img); // see comment of T S why you should do it this way.
             const ratio  = isNaN(imgpromise.naturalHeight / imgpromise.naturalWidth) ? 0 : (imgpromise.naturalHeight / imgpromise.naturalWidth).toFixed(1);
+            
             if (ratio > 1.3) {
                 return imgpromise;
             }
@@ -121,11 +122,6 @@ function Search() {
             obj.onerror = reject;
         });
     }
-
-
-
-
-
 
 
 

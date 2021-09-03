@@ -1,7 +1,7 @@
+import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 import oc from "open-color";
 import { media } from "lib/style-utils";
-import { useEffect, useState, useMemo } from "react";
 
 import ResultFragment from "./ResultFragment";
 import { map } from "react-immutable-proptypes";
@@ -26,52 +26,56 @@ const StyledModal = Modal.styled`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) => props.theme.colors.bgColor};
+  background-color: ${props => props.theme.colors.bgColor};
+  color: ${props => props.theme.colors.titleColor};
 `;
 
-function SearchResult(props) {
-  const result = props.result;
+// Hook
+const SearchResult = React.memo(
+  (props) => {
+    // console.log("SearchResult render");
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [movie, setMovie] = useState();
+    const result = props.result;
 
-  const toggleModal = (movie) => {
-    setIsOpen(!isOpen);
-    console.log(movie);
-    setMovie(movie);
-  };
+    const [isOpen, setIsOpen] = useState(false);
+    const [movie, setMovie] = useState();
 
-  // const result = useMemo(() => props.result, [props.result]);
+    const toggleModal = (movie) => {
+      setIsOpen(!isOpen);
+      // console.log(movie);
+      setMovie(movie);
+    };
 
-  // console.log(result);
-  return (
-    <StyledSearchResult>
-      {result
-        ? result.map((movie, index) => (
-            <ResultFragment
-              movie={movie}
-              key={index}
-              onClick={() => toggleModal(movie)}
-            ></ResultFragment>
-          ))
-        : null}
+    // console.log(result);
+    return (
+      <StyledSearchResult>
+        {result
+          ? result.map((movie, index) => (
+              <ResultFragment
+                movie={movie}
+                key={index}
+                onClick={() => toggleModal(movie)}
+              ></ResultFragment>
+            ))
+          : null}
 
-      <StyledModal
-        isOpen={isOpen}
-        onBackgroundClick={toggleModal}
-        onEscapeKeydown={toggleModal}
-      >
-        {movie ? (
-          <>
-            <span>{movie.title}</span>
-            <span>{movie.subtitle}</span>
-          </>
-        ) : null}
+        <StyledModal
+          isOpen={isOpen}
+          onBackgroundClick={toggleModal}
+          onEscapeKeydown={toggleModal}
+        >
+          {movie ? (
+            <>
+              <span>{movie.title}</span>
+              <span>{movie.subtitle}</span>
+            </>
+          ) : null}
 
-        <button onClick={toggleModal}>Close me</button>
-      </StyledModal>
-    </StyledSearchResult>
-  );
-}
+          <button onClick={toggleModal}>Close me</button>
+        </StyledModal>
+      </StyledSearchResult>
+    );
+  }
+);
 
 export default SearchResult;
