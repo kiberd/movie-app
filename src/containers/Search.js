@@ -17,8 +17,6 @@ const Wrapper = styled.div`
     font-family: 'NanumSquare';
 `;
 
-const baseURL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=a1a1667b8cd272963b692744ef10a2d2&itemPerPage=100';
-
 
 function Search() {
 

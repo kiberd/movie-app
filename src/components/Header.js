@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
 import Switch from '@material-ui/core/Switch';
-import {dark, light} from 'lib/style-utils';
+import { dark, light } from 'lib/style-utils';
 import { props } from 'bluebird';
+
+import firebase, { signInWithGoogle } from 'lib/firebase.utils';
+import CustomButton from './Shared/Button';
 
 
 const Wrapper = styled.div`
@@ -37,29 +40,29 @@ const StyledLink = styled(Link)`
 `;
 
 
-function Header (props) {
+function Header(props) {
 
     return (
         <Wrapper>
 
-        <Switch
-        checked={props.darkMode}
-            onChange={props.onToggleTheme}
-            name="checkedB"
-            color="primary"
-        />
+            <Switch
+                checked={props.darkMode}
+                onChange={props.onToggleTheme}
+                name="checkedB"
+                color="primary"
+            />
+
+            <StyledLink onClick={signInWithGoogle}>Sign in</StyledLink>
+            <StyledLink to="/">Dashboard</StyledLink>
+            <StyledLink to="/search">Search</StyledLink>
+            <StyledLink to="/bookmarks">Bookmarks</StyledLink>
 
 
-        <StyledLink to="/">Dashboard</StyledLink>
-        <StyledLink to="/search">Search</StyledLink>
-        <StyledLink to="/bookmarks">Bookmarks</StyledLink>
-
-
-        {/* <Input inputColor={"black"} placeholder='Search' primary></Input> */}
+            {/* <Input inputColor={"black"} placeholder='Search' primary></Input> */}
 
 
 
-    </Wrapper>
+        </Wrapper>
     )
 }
 

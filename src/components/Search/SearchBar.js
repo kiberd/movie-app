@@ -4,8 +4,10 @@ import oc from "open-color";
 import { media } from "lib/style-utils";
 
 import Input from "components/Shared/Input";
-import Button from "components/Shared/Button";
+import {SearchButton} from "components/Shared/Button";
 import SearchFilter from "./SearchFilter";
+
+import { StylesProvider } from '@material-ui/core/styles';
 
 const StyledSearchBar = styled.div`
   width: 15%;
@@ -35,6 +37,7 @@ const SearchBar = React.memo((props) => {
   };
 
   return (
+
     <StyledSearchBar>
       <Input
         search
@@ -42,11 +45,14 @@ const SearchBar = React.memo((props) => {
         onChange={handleTitleChange}
         onKeyPress={onKeyPress}
       ></Input>
-      <Button search primary onClick={handleSearchClick}>
+
+      <SearchButton onClick={handleSearchClick}>
         검색
-      </Button>
+      </SearchButton>
+
       <SearchFilter></SearchFilter>
     </StyledSearchBar>
+
   );
 });
 
