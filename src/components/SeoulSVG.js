@@ -1,179 +1,172 @@
 import { colors } from "@material-ui/core";
 import { useState, useEffect } from "react";
-
+import { useRowState } from "react-table";
 
 const SeoulSVG = (props) => {
+  useEffect(() => {
+    const colors = props.colors;
 
-    useEffect(() => {
+    setNewColors(colors);
+  }, [props]);
 
-        
-        const colors = props.colors;
-        
-        setNewColors(colors);
-        
-      }, [props]);
+  const OUTLINE = {
+    strokeLinejoin: "round",
+    stroke: "#ffffff",
+    strokeWidth: 2,
+  };
+  const LINE = {
+    strokeLinejoin: "round",
+    stroke: "#ffffff",
+    strokeWidth: 1,
+    fill: "none",
+  };
+  const POINT = {
+    stroke: "#ffffff",
+    strokeWidth: 1,
+    fill: "#ffffff",
+  };
+  const TEXT = {
+    fill: "#ffffff",
+    fontSize: "16px",
+    textAnchor: "middle",
+    alignmentBaseline: "middle",
+  };
 
+  const [colors, setColors] = useState({
+    CD11110: "#f1c40f",
+    CD11140: "#f1c40f",
+    CD11170: "#f1c40f",
+    CD11200: "#f1c40f",
+    CD11215: "#f1c40f",
+    CD11230: "#f1c40f",
+    CD11260: "#f1c40f",
+    CD11290: "#f1c40f",
+    CD11305: "#f1c40f",
+    CD11320: "#f1c40f",
+    CD11350: "#f1c40f",
+    CD11380: "#f1c40f",
+    CD11410: "#f1c40f",
+    CD11440: "#f1c40f",
+    CD11470: "#f1c40f",
+    CD11500: "#f1c40f",
+    CD11530: "#f1c40f",
+    CD11545: "#f1c40f",
+    CD11560: "#f1c40f",
+    CD11590: "#f1c40f",
+    CD11620: "#f1c40f",
+    CD11650: "#f1c40f",
+    CD11680: "#f1c40f",
+    CD11710: "#f1c40f",
+    CD11740: "#ff0000",
+  });
 
-    const OUTLINE = {
-        strokeLinejoin: "round",
-        stroke: "#ffffff",
-        strokeWidth: 2,
-    };
-    const LINE = {
-        strokeLinejoin: "round",
-        stroke: "#ffffff",
-        strokeWidth: 1,
-        fill: "none"
+  const getCode = (name) => {
+    switch (name) {
+      case "종로구":
+        return "CD11110";
+      case "중구":
+        return "CD11140";
+      case "용산구":
+        return "CD11170";
+      case "성동구":
+        return "CD11200";
+      case "광진구":
+        return "CD11215";
+      case "동대문구":
+        return "CD11230";
+      case "중랑구":
+        return "CD11260";
+      case "성북구":
+        return "CD11290";
+      case "강북구":
+        return "CD11305";
+      case "도봉구":
+        return "CD11320";
+      case "노원구":
+        return "CD11350";
+      case "은평구":
+        return "CD11380";
+      case "서대문구":
+        return "CD11410";
+      case "마포구":
+        return "CD11440";
+      case "양천구":
+        return "CD11470";
+      case "강서구":
+        return "CD11500";
+      case "구로구":
+        return "CD11530";
+      case "금천구":
+        return "CD11545";
+      case "영등포구":
+        return "CD11560";
+      case "동작구":
+        return "CD11590";
+      case "관악구":
+        return "CD11620";
+      case "서초구":
+        return "CD11650";
+      case "강남구":
+        return "CD11680";
+      case "송파구":
+        return "CD11710";
+      case "강동구":
+        return "CD11740";
     }
-    const POINT = {
-        stroke: "#ffffff",
-        strokeWidth: 1,
-        fill: "#ffffff"
-    }
-    const TEXT = {
-        fill: "#ffffff",
-        fontSize: "16px",
-        textAnchor: "middle",
-        alignmentBaseline: "middle"
-    }
+  };
 
-    const [colors, setColors] = useState({
-        "CD11110": "#f1c40f",
-        "CD11140": "#f1c40f",
-        "CD11170": "#f1c40f",
-        "CD11200": "#f1c40f",
-        "CD11215": "#f1c40f",
-        "CD11230": "#f1c40f",
-        "CD11260": "#f1c40f",
-        "CD11290": "#f1c40f",
-        "CD11305": "#f1c40f",
-        "CD11320": "#f1c40f",
-        "CD11350": "#f1c40f",
-        "CD11380": "#f1c40f",
-        "CD11410": "#f1c40f",
-        "CD11440": "#f1c40f",
-        "CD11470": "#f1c40f",
-        "CD11500": "#f1c40f",
-        "CD11530": "#f1c40f",
-        "CD11545": "#f1c40f",
-        "CD11560": "#f1c40f",
-        "CD11590": "#f1c40f",
-        "CD11620": "#f1c40f",
-        "CD11650": "#f1c40f",
-        "CD11680": "#f1c40f",
-        "CD11710": "#f1c40f",
-        "CD11740": "#ff0000",
+  const getColor = (value) => {
+    const color = Math.floor(value * 255).toString(16);
 
-    })
+  
 
+    const code = "#ff" + color + color;
 
-    const getCode = (name) => {
+  
 
-        switch (name) {
-            case "종로구":
-                return "CD11110";
-            case "중구":
-                return "CD11140";
-            case "용산구":
-                return "CD11170";
-            case "성동구":
-                return "CD11200";
-            case "광진구":
-                return "CD11215";
-            case "동대문구":
-                return "CD11230";
-            case "중랑구":
-                return "CD11260";
-            case "성북구":
-                return "CD11290";
-            case "강북구":
-                return "CD11305";
-            case "도봉구":
-                return "CD11320";
-            case "노원구":
-                return "CD11350";
-            case "은평구":
-                return "CD11380";
-            case "서대문구":
-                return "CD11410";
-            case "마포구":
-                return "CD11440";
-            case "양천구":
-                return "CD11470";
-            case "강서구":
-                return "CD11500";
-            case "구로구":
-                return "CD11530";
-            case "금천구":
-                return "CD11545";
-            case "영등포구":
-                return "CD11560";
-            case "동작구":
-                return "CD11590";
-            case "관악구":
-                return "CD11620";
-            case "서초구":
-                return "CD11650";
-            case "강남구":
-                return "CD11680";
-            case "송파구":
-                return "CD11710";
-            case "강동구":
-                return "CD11740";
-        }
-    }
+    return code;
+  };
 
-    const getColor = (value) => {
-        const color = Math.floor(value * 255).toString(16);
+  const setNewColors = (colors) => {
+    const newColors = {};
 
-        console.log(Math.floor(value * 255));
+    for (const key of Object.keys(colors)) {
+      const code = getCode(key);
+      const value = getColor(colors[key]);
 
-        
-
-
-        const code = "#ff" + color + color;
-
-        console.log(code);
-
-        return code;
-
+      newColors[code] = value;
     }
 
+  
+
+    setColors(newColors);
+  };
+
+  return (
+    <div>
+      <svg
+        viewBox="124.7893154389517 33.17261058239259 6.173940028631179 5.3700019561126595"
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.2"
+        style={{ transform: "rotate(-180deg) translateY(-300px)" }}
+      >
+        <g>
 
 
+          <path
+            class="polygon"
+            d="M127.60472638427933 38.072648233869785L127.60776133059719 38.071674018579536L127.65473867484185 38.02576695898344L127.65490464895771 38.0272843475771L127.73374753570245 38.035814428263734L127.73394342807514 38.03607616237089L127.77599099169834 38.01389743776739L127.77653868086756 38.013597091144185L127.77680464554413 38.013645455050394L127.77680679204794 38.01364599945677L127.77821827512304 38.01390161291351L127.78820556176866 37.99429384493769L127.85810008725723 38.018823189046856L127.84998445340655 38.03881738462732L127.84996624162804 38.03970714676426L127.85341448275034 38.05051795468947L127.85515517661896 38.05230429633902L127.90267220658595 38.05059746772935L127.90406646899208 38.03033085142509L127.93819691986677 38.0142189559451L127.95542737502664 38.038681717354734L128.0266722331339 38.017796712480774L128.02775769398346 38.01662989632316L128.02960825528916 38.01465092963498L127.99156474624627 37.99104134769293L127.98061750639293 37.9560245946445L127.99511005992537 37.94120017831497L127.94297354008073 37.847717380673835L127.880749571477 37.860690469300174L127.87160537691756 37.83749890981126L127.83226963288861 37.84363809611895L127.82488916066619 37.798252559546434L127.85739655033578 37.768520783600316L127.82834990088885 37.74087966069713L127.74645263424765 37.74192034567269L127.68158535483602 37.71171483961186L127.67782878808474 37.6951459897275L127.59616561240232 37.70319433793947L127.5599120761837 37.728576643007834L127.53840882669513 37.720099166469765L127.53734262478201 37.72048692268131L127.50811462954897 37.71901946586745L127.50706716797781 37.72059387794086L127.51400490578338 37.73860299720318L127.51568218551617 37.73957689422137L127.51687145746531 37.74026739868065L127.52266757137158 37.74278823313853L127.54498749784119 37.76363171125695L127.52753971505571 37.78406721886224L127.52567833477512 37.785345279088446L127.52632867517762 37.79935066412937L127.52675615810597 37.799765445455876L127.53244266532597 37.842152266197694L127.53669821638387 37.84481158795707L127.61705254374384 37.905995787690856L127.60660211053394 37.94371269810118L127.60373628932362 37.94449064874135L127.54737624545533 37.96645830996346L127.54021885972703 37.99986793813673L127.54031461249298 38.00116171374267L127.54480116672471 38.019155346217104L127.54476050204117 38.019527438325206L127.5786433502747 38.0397670520254L127.56558569828945 38.083013464968246L127.56610867637458 38.08385920379707L127.60472638427933 38.072648233869785Z"
+            stroke="#333333"
+            stroke-opacity="0.75"
+            stroke-width="0"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="#000000"
+          />
+        </g>
+      </svg>
 
-    const setNewColors = (colors) => {
-
-        const newColors = {};
-
-        for (const key of Object.keys(colors)) {
-
-            const code = getCode(key);
-            const value = getColor(colors[key]);
-
-            newColors[code] = value
-
-        }
-
-        console.log(newColors);
-
-        setColors(newColors);
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-    return (
-        <div>
-            <svg style={{ background: "#eaeaea", overflow: "visible" }} height="656" width="800" xmlns="http://www.w3.org/2000/svg">
+      <svg style={{ background: "#eaeaea", overflow: "visible" }} height="656" width="800" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <filter id="dropshadow">
                         <feGaussianBlur in="SourceAlpha" stdDeviation="7" />
@@ -247,10 +240,8 @@ const SeoulSVG = (props) => {
                     <text id="LCD11740" style={TEXT} x="675" y="358">강동구</text>
                 </g>
             </svg>
-        </div>
-    )
-}
-
-
+    </div>
+  );
+};
 
 export default SeoulSVG;
