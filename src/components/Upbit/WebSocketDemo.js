@@ -1,43 +1,66 @@
 import React, { useState, useCallback, useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
+import { w3cwebsocket } from "websocket";
+
 
 const WebSocketDemo = () => {
-  // This can also be an async getter function. See notes below on Async Urls.
-  const socketUrl = "wss://api.upbit.com/websocket/v1";
 
-  const {
-    sendMessage,
-    lastMessage,
-    readyState,
-    getWebSocket
-  } = useWebSocket(socketUrl, {
-    
-    onOpen: () => {
-      console.log(getWebSocket().binaryType);
-      // sendMessage( JSON.stringify( [{"ticket"	: "TEST"},{ "type"		: "ticker", "codes"		: ["KRW-BTC"]}]) )
-    },
-    
-    onMessage: (e) => {
-      console.log(getWebSocket().binaryType);
-      // console.log(e);
-    },
+  const [price, setPrice] = useState();
 
-    share: true 
-  
-  });
-  
+  let client;
+
   useEffect(() => {
 
-    if(getWebSocket()){
-      getWebSocket.binaryType = 'arraybuffer';
-      getWebSocket().send(JSON.stringify( [{"ticket"	: "TEST"},{ "type"		: "ticker", "codes"		: ["KRW-BTC"]}]))
+    client = new w3cwebsocket("wss://api.upbit.com/websocket/v1");
+    client.binaryType = "arraybuffer";
+
+    client.onopen = () => {
+      onOpen();
     }
 
-    
-    
+    client.onmessage = (e) => {
+      onMessage(e);
+    }
+
   }, []);
 
-  return <div>ddd</div>;
+  const onOpen = () => {
+    const msg = JSON.stringify([{ "ticket": "TEST" }, { "type": "ticker", "codes": ["KRW-BTC"] }]);
+    doSend(msg);
+  };
+
+  const doSend = (msg) => {
+    client.send(msg);
+  }
+
+  const onMessage = (e) => {
+
+    const enc = new TextDecoder("utf-8");
+    const arr = new Uint8Array(e.data);
+    const priceData = JSON.parse(enc.decode(arr)); 
+
+    
+
+    // const priceInfo = {
+    //   openingPrice: priceData.opening_price,
+    //   prevClosingPrice: priceData.prev_closing_price,
+
+    //   lowPrice: priceData.low_price,
+    //   highPrice: priceData.high_price,
+
+    //   tradePrice: priceData.trade_price,
+    //   change: priceData.change     
+    // }
+
+    const price = priceData.trade_price;
+
+    
+    setPrice(price);
+
+
+  }
+
+  return <div>{price}</div>;
 };
 
 export default WebSocketDemo;
