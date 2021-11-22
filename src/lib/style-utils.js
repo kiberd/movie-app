@@ -28,6 +28,7 @@ font-size: 1.2rem;
 display: flex;
 height: 95vh;
 font-family: 'NanumSquare';
+background: ${props => props.color || 'white'};
 `;
 
 export const dark ={
