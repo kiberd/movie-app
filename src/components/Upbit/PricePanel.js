@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import PriceSearchInput from './PriceSearchInput';
 import MarketSelect from './MarketSelect';
-import PriceTable from './PriceTable';
+import PriceTableContainer from './PriceTableContainer';
 
 
 const PricePanelWrapper = styled.div`
@@ -20,7 +20,7 @@ const PricePanel = () => {
         <PricePanelWrapper>
             <PriceSearchInput/>
             <MarketSelect/>
-            <PriceTable/>
+            <PriceTableContainer/>
         </PricePanelWrapper>
     )
 
