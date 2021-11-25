@@ -19,21 +19,31 @@ const PriceTableContainer = () => {
             {
                 code: "KRW-BTC",
                 currentPrice: "",
+                changeRate: "",
                 tradeVolume: "",
             },
             {
                 code: "KRW-ETH",
                 currentPrice: "",
+                changeRate: "",
                 tradeVolume: "",
             },
             {
                 code: "KRW-BCH",
                 currentPrice: "",
+                changeRate: "",
                 tradeVolume: "",
             },
             {
                 code: "KRW-ETC",
                 currentPrice: "",
+                changeRate: "",
+                tradeVolume: "",
+            },
+            {
+                code: "KRW-SAND",
+                currentPrice: "",
+                changeRate: "",
                 tradeVolume: "",
             },
 
@@ -58,11 +68,7 @@ const PriceTableContainer = () => {
 
     const onOpen = () => {
         const msg = JSON.stringify([
-
-
-            { "ticket": "TEST" }, { "type": "ticker", "codes": ["KRW-BTC", "KRW-ETH", "KRW-BCH", "KRW-ETC"] }
-
-
+            { "ticket": "TEST" }, { "type": "ticker", "codes": ["KRW-BTC", "KRW-ETH", "KRW-BCH", "KRW-ETC", "KRW-SAND"] }
         ]);
         doSend(msg);
     };
@@ -77,6 +83,8 @@ const PriceTableContainer = () => {
         const arr = new Uint8Array(e.data);
         const priceData = JSON.parse(enc.decode(arr));
 
+        
+
         const code = priceData.code;
 
         // 해당 메세지가 어느 index 인지 알기위해서 
@@ -89,7 +97,10 @@ const PriceTableContainer = () => {
 
 
 
-        setPriceInfo([...priceInfo], priceInfo[index].currentPrice = priceData.trade_price, priceInfo[index].tradeVolume = priceData.trade_volume);
+        setPriceInfo([...priceInfo], 
+            priceInfo[index].currentPrice = priceData.trade_price,
+            priceInfo[index].changeRate = priceData.signed_change_rate, 
+            priceInfo[index].tradeVolume = priceData.acc_trade_price_24h);
 
 
         const getName = (name) => {
@@ -121,6 +132,10 @@ const PriceTableContainer = () => {
         {
             Header: '현재가',
             accessor: 'currentPrice',
+        },
+        {
+            Header: '전일대비',
+            accessor: 'changeRate',
         },
         {
             Header: '거래대금',

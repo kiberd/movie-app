@@ -19,7 +19,7 @@ const PricePanel = () => {
     return (
         <PricePanelWrapper>
             <PriceSearchInput/>
-            <MarketSelect/>
+            {/* <MarketSelect/> */}
             <PriceTableContainer/>
         </PricePanelWrapper>
     )
