@@ -97,10 +97,16 @@ const PriceTableContainer = () => {
 
 
 
-        setPriceInfo([...priceInfo], 
+        setPriceInfo(
+            
+            [...priceInfo], 
             priceInfo[index].currentPrice = priceData.trade_price,
             priceInfo[index].changeRate = priceData.signed_change_rate, 
-            priceInfo[index].tradeVolume = priceData.acc_trade_price_24h);
+            priceInfo[index].tradeVolume = priceData.acc_trade_price_24h
+            
+        );
+
+
 
 
         const getName = (name) => {

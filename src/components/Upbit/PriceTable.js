@@ -53,6 +53,8 @@ const PriceTable = (props) => {
 
     const { columns, data } = props;
 
+    
+
     const [order, setOrder] = useState("desc");
     const [orderBy, setOrderBy] = useState("tradeVolume");
 

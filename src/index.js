@@ -5,10 +5,37 @@ import App from 'containers/App'
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
+import { createStore, applyMiddleware, compose } from "redux";
+import { Provider } from 'react-redux';
+import logger from "redux-logger";
+import { composeWithDevTools } from "redux-devtools-extension";
+import createSagaMiddleware from "redux-saga";
+
+
+import rootReducer from "./modules/reducers";
+import rootSaga from './modules/sagas';
+
+
+
+
+const sagaMiddleware = createSagaMiddleware();
+
+const enhancer =
+  process.env.NODE_ENV === "production"
+    ? compose(applyMiddleware(sagaMiddleware))
+    : composeWithDevTools(applyMiddleware(sagaMiddleware, logger));
+
+const store = createStore(rootReducer, enhancer);
+
+sagaMiddleware.run(rootSaga); // 루트 사가를 실행해줍니다.
+
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
