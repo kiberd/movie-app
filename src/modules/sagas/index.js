@@ -1,8 +1,8 @@
 // sagas/index.js
 import { all, fork } from "redux-saga/effects";
 
-import userTicket from "./userTicket";
+import movieInfo from "./movieInfo";
 
 export default function* rootSaga() {
-  yield all([fork(userTicket)]);
+  yield all([fork(movieInfo)]);
 }

@@ -1,7 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import styled from 'styled-components';
 import { media, MainWrapper } from 'lib/style-utils';
 import axios from 'axios';
+
+import { useSelector, useDispatch } from "react-redux";
+import { getMovieInfo } from 'modules/reducers/movieInfo';
 
 
 import { SearchBar, SearchResult } from 'components/Search'
@@ -20,12 +23,77 @@ const Wrapper = styled.div`
 
 function Search() {
 
-    console.log('Search render');
+    const dispatch = useDispatch();
+    const { movieInfo, loading } = useSelector(state => state.movieInfo);
 
     const [title, setTitle] = useState('');
-    const [filter, setFilter] = useState();
     const [result, setResult] = useState();
 
+    useEffect(() => {
+
+        const movies = [];
+
+        // URL 공백 제거
+        movieInfo.map((movie) => {
+            if (movie.image !== '') {
+                movies.push(movie);
+            }
+        });
+
+        // onLoad 되는 것만 filter
+        filterOnLoadImg(movies);
+
+    }, [movieInfo]);
+
+    const filterOnLoadImg = async (movies) => {
+
+        const onLoadList = [];
+
+        await Promise.all(
+            movies.map(async (movie) => {
+                if (await addImageProcess(movie.image)) {
+                    onLoadList.push(movie);
+                }
+            })
+        );
+
+        setResult(onLoadList);
+    }
+
+    const getSearchMovie = async () => {
+        
+        const params =
+        {
+            params: { query: title, display: 100 },
+            headers: {
+                'X-Naver-Client-Id': 'WTMWv8BhCZ6X8sY1VLdE',
+                'X-Naver-Client-Secret': 'rIgKTA9THU'
+            }
+        }
+
+        dispatch(getMovieInfo(params));
+    }
+
+
+
+    const addImageProcess = async (src) => {
+
+        let img = new Image();
+        img.src = src;
+
+        const imgPromise = await onLoadPromise(img);
+        const ratio = isNaN(imgPromise.naturalHeight / imgPromise.naturalWidth) ? 0 : (imgPromise.naturalHeight / imgPromise.naturalWidth).toFixed(1);
+
+        if (ratio > 1.3) return imgPromise;
+
+    }
+
+    const onLoadPromise = (obj) => {
+        return new Promise((resolve, reject) => {
+            obj.onload = () => resolve(obj);
+            obj.onerror = reject;
+        });
+    }
 
     const handleTitleChange = (target) => {
         const title = target;
@@ -33,111 +101,14 @@ function Search() {
     };
 
     const handleSearchClick = () => {
-
-        if (title === '') {
-            alert('검색어를 입력해주세요!')
-        }
-        else {
-            getSearchMovie();
-        }
+        title === '' ? alert('검색어를 입력해주세요!') : getSearchMovie();
     };
-
-    async function getSearchMovie(filter) {
-
-        let noBlankResult = [];
-        let finalResult = [];
-
-        try {
-            const { data: { items } } = await axios.get('/v1/search/movie.json',
-                {
-                    params:
-                    {
-                        query: title,
-                        display: 100
-                    },
-                    headers:
-                    {
-                        'X-Naver-Client-Id': 'WTMWv8BhCZ6X8sY1VLdE',
-                        'X-Naver-Client-Secret': 'rIgKTA9THU'
-                    }
-                });
-
-            // url 갖고 있지 않는 애들 제거
-            items.map((item) => {
-                if (item.image !== '') {
-                    noBlankResult.push(item);
-                }
-            })
-
-        }
-        catch (e) {
-            console.log(e);
-            alert('네이버 영화 api를 조회할 수 없습니다.');
-        }
-
-
-        // 정상적으로 로드 된 이미지만 넣음
-        try {
-            await Promise.all(
-                noBlankResult.map(async (item) => {
-                    if (await addImageProcess(item.image)) {
-                        finalResult.push(item);
-                    }
-                })
-            );
-
-        }
-        catch (e) {
-            console.log(e);
-        }
-        setResult(finalResult);
-
-    }
-
-    async function addImageProcess(src) {
-
-        let img = new Image();
-        img.src = src;
-        try {
-
-            let imgpromise = await onload2promise(img); // see comment of T S why you should do it this way.
-            const ratio  = isNaN(imgpromise.naturalHeight / imgpromise.naturalWidth) ? 0 : (imgpromise.naturalHeight / imgpromise.naturalWidth).toFixed(1);
-            
-            if (ratio > 1.3) {
-                return imgpromise;
-            }
-
-        }
-        catch (e) {
-            console.log(e);
-        }
-
-    }
-
-    function onload2promise(obj) {
-        return new Promise((resolve, reject) => {
-            obj.onload = () => resolve(obj);
-            obj.onerror = reject;
-        });
-    }
-
-
-
-
-
-
-
-
-
 
     return (
         <MainWrapper>
-
             <SearchBar onHandleTitleChange={handleTitleChange} onHandleSearchClick={handleSearchClick} />
             <SearchResult result={result} />
-
         </MainWrapper>
-
     );
 }
 
